@@ -58,6 +58,6 @@ func main() {
 		resMins -= convMin(e)
 	}
 
-	fmt.Printf("Ans:=%vmins, (%v)\n", resMins, conv(resMins))
+	fmt.Printf("%v\n", conv(resMins))
 
 }
