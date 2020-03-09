@@ -39,9 +39,26 @@ func convMin(v string) int {
 }
 
 func conv(mins int) string {
-	hh := mins / 60
-	mm := mins % 60
-	return fmt.Sprintf("%v-%02v", hh, mm)
+	sign := 1
+	if mins < 0 {
+		sign = -1
+	}
+
+	hh := mins / 60 * sign
+	mm := mins % 60 * sign
+	if sign >= 0 {
+		return fmt.Sprintf("%v:%02v", hh, mm)
+	} else {
+		return fmt.Sprintf("-(%v:%02v)", hh, mm)
+	}
+}
+
+func calc(args []string) string {
+	resMins := convMin(args[0])
+	for _, e := range args[1:] {
+		resMins -= convMin(e)
+	}
+	return conv(resMins)
 }
 
 func main() {
@@ -53,11 +70,5 @@ func main() {
 		os.Exit(1)
 	}
 
-	resMins := convMin(args[0])
-	for _, e := range args[1:] {
-		resMins -= convMin(e)
-	}
-
-	fmt.Printf("%v\n", conv(resMins))
-
+	fmt.Printf("%v\n", calc(args))
 }
